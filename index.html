@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Michael D Annual Golf Tournament 2026 — RSVPs</title>
+<style>
+  :root{
+    --green:#1f7a4d; --green-dark:#16623c; --green-soft:#e8f3ec;
+    --ink:#1c2421; --muted:#6b7770; --line:#e2e7e4; --bg:#f4f7f5; --card:#fff;
+    --amber:#b8860b; --shadow:0 1px 2px rgba(16,40,28,.06),0 6px 20px rgba(16,40,28,.06);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;}
+  .wrap{max-width:1000px;margin:0 auto;padding:0 18px 56px}
+  .hero{background:linear-gradient(160deg,var(--green) 0%,var(--green-dark) 100%);color:#fff;
+    border-radius:0 0 20px 20px;padding:30px 26px 26px;margin-bottom:22px}
+  .hero h1{margin:0 0 6px;font-size:24px;letter-spacing:-.02em}
+  .hero .meta{font-size:14px;opacity:.92;line-height:1.6}
+  .hero .meta b{font-weight:600}
+  .updated{font-size:12px;opacity:.8;margin-top:12px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .updated button{font:inherit;font-size:12px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.3);
+    color:#fff;border-radius:8px;padding:4px 10px;cursor:pointer}
+  .updated button:hover{background:rgba(255,255,255,.26)}
+
+  .cards{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:22px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:15px;box-shadow:var(--shadow)}
+  .card .label{font-size:11.5px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
+  .card .value{font-size:25px;font-weight:650;margin-top:5px;letter-spacing:-.02em}
+  .card.good .value{color:var(--green)}
+
+  h2.sec{font-size:14px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin:26px 0 12px}
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);overflow:hidden}
+
+  .grp-section{padding:6px 18px 12px}
+  .grp-section h3{font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);margin:14px 0 10px}
+  .grp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+  .grp-card{border:1px solid var(--line);border-radius:13px;padding:13px 15px;background:#fff}
+  .grp-card .gh{display:flex;justify-content:space-between;align-items:center;gap:8px;
+    padding-bottom:9px;margin-bottom:10px;border-bottom:1px dashed var(--line)}
+  .grp-card .gh strong{font-size:15px}
+  .grp-card .gh .pk{font-size:11px;text-transform:uppercase;letter-spacing:.03em;color:var(--muted)}
+  .roster{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+  .roster li{display:flex;gap:9px;align-items:baseline;font-size:13.5px}
+  .roster .num{width:16px;color:#aab2ad;font-variant-numeric:tabular-nums;flex:none;text-align:right}
+  .roster .who{font-weight:600}
+  .roster .who.cap{color:var(--green-dark)}
+  .roster .em{color:var(--muted);font-size:12px}
+  .roster .open{color:#b6bdb8;font-style:italic}
+
+  table{width:100%;border-collapse:collapse;font-size:13.5px}
+  thead th{text-align:left;font-size:11.5px;text-transform:uppercase;letter-spacing:.03em;color:var(--muted);
+    padding:11px 16px;border-bottom:1px solid var(--line);background:#fbfcfb;white-space:nowrap}
+  tbody td{padding:11px 16px;border-bottom:1px solid var(--line);vertical-align:top}
+  tbody tr:last-child td{border-bottom:none}
+  .pill{display:inline-block;padding:2px 9px;border-radius:999px;background:var(--green-soft);color:var(--green-dark);font-size:12px;font-weight:600}
+  .pill.gray{background:#f0f0f0;color:#999}
+  .money{font-variant-numeric:tabular-nums;font-weight:600}
+  .muted{color:var(--muted)}
+
+  /* payments */
+  .pay-head{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;
+    padding:14px 18px;border-bottom:1px solid var(--line)}
+  .pay-stats{font-size:13px;color:var(--muted)}
+  .pay-stats b{color:var(--ink)}
+  .bar{height:10px;border-radius:999px;background:var(--green-soft);overflow:hidden;margin-top:8px;min-width:180px}
+  .bar > span{display:block;height:100%;background:var(--green);border-radius:999px}
+  .pay-row{display:flex;align-items:center;gap:13px;padding:12px 18px;border-bottom:1px solid var(--line)}
+  .pay-row:last-child{border-bottom:none}
+  .pay-row input{width:20px;height:20px;accent-color:var(--green);cursor:pointer;flex:none}
+  .pay-row .nm{flex:1;font-weight:600}
+  .pay-row.paid .nm{color:var(--muted);text-decoration:line-through}
+  .pay-row .amt{font-variant-numeric:tabular-nums;font-weight:600;min-width:70px;text-align:right}
+  .tag{font-size:11px;font-weight:600;padding:2px 8px;border-radius:999px}
+  .tag.y{background:var(--green-soft);color:var(--green-dark)}
+  .tag.n{background:#fbf1e0;color:var(--amber)}
+
+  .del{flex:none;border:none;background:none;color:#c2c8c4;cursor:pointer;font-size:14px;line-height:1;padding:3px 6px;border-radius:6px}
+  .del:hover{background:#fdecec;color:#c0392b}
+  .undo{font-size:12.5px;color:var(--muted);padding:11px 18px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+  .undo button{font:inherit;font-size:12px;border:1px solid var(--line);background:#fff;border-radius:8px;padding:5px 11px;cursor:pointer}
+  .undo button:hover{border-color:#cfd6d2}
+  .addbtn{font:inherit;font-size:12px;font-weight:600;cursor:pointer;border:1px solid var(--line);background:#fff;color:var(--green-dark);border-radius:8px;padding:4px 10px}
+  .addbtn:hover{border-color:var(--green);background:var(--green-soft)}
+  .grp-add{padding:10px 0 2px}
+  .tbl-head{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;padding:12px 16px;border-bottom:1px solid var(--line)}
+  .tbl-head .tools{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+  .tbl-head input[type=text],.tbl-head select{font:inherit;padding:7px 10px;border:1px solid var(--line);border-radius:9px;background:#fff;color:var(--ink);outline:none}
+  .tbl-head input[type=text]:focus,.tbl-head select:focus{border-color:var(--green);box-shadow:0 0 0 3px var(--green-soft)}
+  .tbl-head button{font:inherit;font-weight:550;cursor:pointer;border-radius:9px;padding:7px 12px;border:1px solid var(--line);background:#fff}
+  .tbl-head button:hover{border-color:#cfd6d2}
+  thead th.sortable{cursor:pointer;user-select:none}
+  thead th .arr{opacity:.4;font-size:10px}
+  thead th.act .arr{opacity:1;color:var(--green)}
+  .bars{display:grid;gap:9px;padding:15px 18px}
+  .bar-row{display:grid;grid-template-columns:120px 1fr 96px;gap:10px;align-items:center;font-size:13px}
+  .bar-tr{background:var(--green-soft);border-radius:999px;height:11px;overflow:hidden}
+  .bar-fl{background:var(--green);height:100%;border-radius:999px}
+  .note{font-size:12.5px;color:var(--muted);padding:11px 18px;background:#fbfaf4;border-top:1px solid #efe9d6}
+  .setup{background:#fff;border:1px solid var(--line);border-radius:16px;padding:22px 24px;box-shadow:var(--shadow)}
+  .setup h2{margin:0 0 8px;font-size:18px}
+  .setup ol{margin:10px 0 0;padding-left:20px}.setup li{margin:7px 0}
+  .setup code{background:#f1f4f2;padding:1px 6px;border-radius:5px;font-size:12.5px}
+  .err{background:#fdecec;border:1px solid #f5c6c6;color:#8a2b2b;padding:12px 16px;border-radius:12px;margin-bottom:16px;font-size:13.5px}
+  .spin{display:inline-block;width:15px;height:15px;border:2px solid var(--green-soft);border-top-color:var(--green);border-radius:50%;animation:sp .8s linear infinite;vertical-align:-2px}
+  @keyframes sp{to{transform:rotate(360deg)}}
+  @media(max-width:780px){.cards{grid-template-columns:repeat(2,1fr)}.hero{border-radius:0 0 16px 16px}}
+</style>
+</head>
+<body>
+<div class="hero">
+  <div class="wrap" style="padding-bottom:0">
+    <h1>⛳ Michael D Annual Golf Tournament 2026</h1>
+    <div class="meta">
+      <b>Monday, August 17, 2026</b> · 9:00 AM CST<br>
+      Oak Park Country Club · 2001 N Thatcher Ave, River Grove, IL 60171<br>
+      Payment via Venmo <b>@Trisha-Connolly</b> — registration isn't complete until paid.
+    </div>
+    <div class="updated"><span id="updated">Loading…</span><button id="refresh">↻ Refresh</button><span style="opacity:.7">v3 · add golfers · add groups · delete ✕ · search · sort · export</span></div>
+  </div>
+</div>
+
+<div class="wrap">
+  <div id="errbox"></div>
+  <div id="app"></div>
+</div>
+
+<script>
+/* ============================================================
+   SETUP: paste your sheet's published-CSV link between the quotes.
+   In Google Sheets: File → Share → Publish to web → (the responses
+   tab) → Comma-separated values (.csv) → Publish → copy the URL.
+   You can also pass it via the page URL: ...golf.html?csv=PASTE_URL
+   ============================================================ */
+const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRMAm_RfEnMgwNnJ3mztqgI-rXMkgX4dZw5kiYuUD8yvU9GoyP4VvXanZfA5A04vCggXJAURv2_f6OG/pub?output=csv";
+
+const TIERS = [
+  { label:"Single Golfer", golfers:1, price:350 },
+  { label:"Twosome",       golfers:2, price:700 },
+  { label:"Foursome",      golfers:4, price:1400 }
+];
+const PAID_KEY = "golf_paid_v1";
+let PAID = {};
+try { PAID = JSON.parse(localStorage.getItem(PAID_KEY) || "{}"); } catch(e){ PAID = {}; }
+
+const RM_KEY = "golf_removed_v1";
+let RM = { regs:{}, members:{} };
+try { const s = JSON.parse(localStorage.getItem(RM_KEY)); if(s){ RM.regs=s.regs||{}; RM.members=s.members||{}; } } catch(e){}
+function saveRM(){ try{ localStorage.setItem(RM_KEY, JSON.stringify(RM)); }catch(e){} }
+function memKey(regKey, m){ return regKey + "::" + ((m.email||m.name)||"").toLowerCase().trim(); }
+
+const ADD_KEY = "golf_added_v1";
+let ADD = { members:{}, groups:[] };
+try { const a = JSON.parse(localStorage.getItem(ADD_KEY)); if(a){ ADD.members=a.members||{}; ADD.groups=a.groups||[]; } } catch(e){}
+function saveADD(){ try{ localStorage.setItem(ADD_KEY, JSON.stringify(ADD)); }catch(e){} }
+
+let RAW = [];   // everything parsed from the sheet
+let ROWS = [];  // RAW minus anything you've deleted
+let TQ = "", TF = "", SK = "date", SD = -1;  // table search, filter, sort key/dir
+
+const $ = id => document.getElementById(id);
+function esc(s){ return (s==null?"":String(s)).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
+function fmt(n){ return "$" + (n||0).toLocaleString("en-US"); }
+
+function csvUrl(){
+  const q = new URLSearchParams(location.search).get("csv");
+  return (q && q.trim()) || CSV_URL;
+}
+
+/* robust CSV parser (handles quotes, commas & newlines in fields) */
+function parseCSV(text){
+  const rows=[]; let row=[], f="", i=0, q=false;
+  while(i<text.length){
+    const c=text[i];
+    if(q){
+      if(c==='"'){ if(text[i+1]==='"'){ f+='"'; i++; } else q=false; }
+      else f+=c;
+    } else {
+      if(c==='"') q=true;
+      else if(c===','){ row.push(f); f=""; }
+      else if(c==='\r'){}
+      else if(c==='\n'){ row.push(f); rows.push(row); row=[]; f=""; }
+      else f+=c;
+    }
+    i++;
+  }
+  if(f.length||row.length){ row.push(f); rows.push(row); }
+  return rows;
+}
+
+function pick(rec, res){ for(const k in rec){ for(const re of res) if(re.test(k)) return rec[k]; } return ""; }
+function tierFor(label){ if(!label) return null; const L=label.toLowerCase();
+  return TIERS.find(t=>L.includes(t.label.toLowerCase())||t.label.toLowerCase().includes(L)) || null; }
+
+function parseGolfers(s){
+  if(!s) return [];
+  const t=s.trim();
+  if(!t||/^tbd\.?$/i.test(t)||/^n\/?a$/i.test(t)||/^none$/i.test(t)) return [];
+  return t.split(/[;,\n]+| and /i).map(e=>e.trim()).filter(Boolean).map(entry=>{
+    let email=""; const em=entry.match(/[\w.+-]+@[\w.-]+\.\w+/); if(em) email=em[0];
+    let name=entry.replace(/[|<>]/g," "); if(email) name=name.replace(email," ");
+    name=name.replace(/\s+/g," ").trim();
+    return { name, email };
+  });
+}
+
+function buildRow(rec){
+  const name = pick(rec,[/full name/,/^name/,/\bname\b/]) || "(unknown)";
+  const email = pick(rec,[/e-?mail/]) || "";
+  const sizeAns = pick(rec,[/how many/,/registering/,/golfers/]);
+  const matchedTier = tierFor(pick(rec,[/package/,/tier/])) || tierFor(sizeAns);
+  const attendAns = pick(rec,[/attend/]);
+  const attending = attendAns ? !/\b(no|can'?t|cannot|sorry|won'?t|decline|unable|not)\b/i.test(attendAns) : true;
+  const others = parseGolfers(pick(rec,[/other golfers/,/names? *(&|and) *emails/,/playing with/]));
+  return {
+    date: pick(rec,[/timestamp|^time|date/]) || "",
+    name, email,
+    tier: matchedTier ? matchedTier.label : (sizeAns||""),
+    golfers: matchedTier ? matchedTier.golfers : 0,
+    price: matchedTier ? matchedTier.price : 0,
+    attending, others,
+    key: (email||name).toLowerCase().trim()
+  };
+}
+
+async function load(){
+  $("app").innerHTML = '<div class="setup"><span class="spin"></span> &nbsp;Loading RSVPs…</div>';
+  $("errbox").innerHTML = "";
+  const url = csvUrl();
+  if(!url || /PASTE_PUBLISHED_CSV_URL_HERE/.test(url)){ renderSetup(); return; }
+  try{
+    const res = await fetch(url, { cache:"no-store" });
+    if(!res.ok) throw new Error("HTTP " + res.status);
+    const text = await res.text();
+    const table = parseCSV(text).filter(r => r.some(c => (c||"").trim() !== ""));
+    if(!table.length) throw new Error("The sheet appears to be empty.");
+    const headers = table[0].map(h => h.toLowerCase().trim());
+    RAW = table.slice(1).map(cells=>{
+      const rec={}; headers.forEach((h,j)=>{ if(h) rec[h]=(cells[j]||"").trim(); });
+      return buildRow(rec);
+    }).filter(r => r.name && r.name !== "(unknown)");
+    applyRemovals();
+    $("updated").textContent = "Updated " + new Date().toLocaleString();
+  }catch(e){
+    $("updated").textContent = "";
+    $("errbox").innerHTML = '<div class="err">Couldn\'t load the responses: ' + esc(e.message) +
+      '. Make sure the sheet is ' +
+      '<b>published to the web as CSV</b> and the link is correct.</div>';
+    renderSetup();
+  }
+}
+
+function setPaid(key, val){
+  if(val) PAID[key]=1; else delete PAID[key];
+  try{ localStorage.setItem(PAID_KEY, JSON.stringify(PAID)); }catch(e){}
+  render();
+}
+
+/* Build ROWS from the sheet, applying your deletions and manual additions. */
+function applyRemovals(){
+  const base = RAW.filter(r => !RM.regs[r.key]).map(r => {
+    const orig = (r.others||[]).filter(o => !RM.members[memKey(r.key,o)]);
+    const added = (ADD.members[r.key]||[]).filter(o => !RM.members[memKey(r.key,o)]);
+    const deletedMembers = (r.others||[]).length - orig.length;
+    return Object.assign({}, r, { others: orig.concat(added), deletedMembers });
+  });
+  const manual = ADD.groups.filter(g => !RM.regs[g.key]).map(g => {
+    const t = tierFor(g.tier) || { label:(g.tier||"Other"), golfers:1, price:0 };
+    const added = (ADD.members[g.key]||[]).filter(o => !RM.members[memKey(g.key,o)]);
+    return { date:g.date||"", name:g.name, email:g.email||"", tier:t.label,
+      golfers:t.golfers, price:t.price, attending:true, others:added, deletedMembers:0, key:g.key, manual:true };
+  });
+  ROWS = base.concat(manual);
+  render();
+}
+function removeReg(key){ RM.regs[key]=1; saveRM(); applyRemovals(); }
+function removeMember(combo){ const i=combo.indexOf("|||"); RM.members[combo.slice(0,i)+"::"+combo.slice(i+3)]=1; saveRM(); applyRemovals(); }
+function undoAll(){ RM={regs:{},members:{}}; saveRM(); applyRemovals(); }
+function removedCount(){ return Object.keys(RM.regs).length + Object.keys(RM.members).length; }
+
+function addMember(regKey){
+  const name = prompt("Add golfer — name:");
+  if(!name || !name.trim()) return;
+  const email = (prompt("Their email (optional):") || "").trim();
+  (ADD.members[regKey] = ADD.members[regKey] || []).push({ name:name.trim(), email:email });
+  saveADD(); applyRemovals();
+}
+function addGroup(){
+  const name = prompt("New registration — registrant name:");
+  if(!name || !name.trim()) return;
+  const pk = prompt("Package — type Single, Twosome, or Foursome:", "Foursome") || "";
+  const t = tierFor(pk);
+  if(!t){ alert("Please type Single, Twosome, or Foursome."); return; }
+  const email = (prompt("Their email (optional):") || "").trim();
+  ADD.groups.push({ key:"manual-"+Date.now(), name:name.trim(), email:email, tier:t.label, others:[] });
+  saveADD(); applyRemovals();
+}
+
+function render(){
+  const att = ROWS.filter(r=>r.attending);
+  const golfers = att.reduce((s,r)=>s+Math.max(0,(r.golfers||0)-(r.deletedMembers||0)),0);
+  const expected = att.reduce((s,r)=>s+(r.price||0),0);
+  const collected = att.filter(r=>PAID[r.key]).reduce((s,r)=>s+(r.price||0),0);
+
+  let html = "";
+
+  /* summary cards */
+  html += '<div class="cards">' +
+    card("RSVPs", att.length) +
+    card("Golfers", golfers) +
+    card("Groups", att.length) +
+    card("Expected", fmt(expected)) +
+    card("Collected", fmt(collected), "good") +
+  '</div>';
+
+  /* breakdown by package */
+  html += breakdownHtml(att);
+
+  /* groups */
+  html += '<h2 class="sec">Groups</h2>' + groupsHtml(att);
+
+  /* payments */
+  html += '<h2 class="sec">Payment checklist</h2>' + paymentsHtml(att, collected, expected);
+
+  /* full table with search / filter / sort / export */
+  html += responsesShell();
+
+  /* undo bar */
+  const rc = removedCount();
+  if(rc){
+    html += '<div class="panel" style="margin-top:16px"><div class="undo"><span>'+
+      rc+' golfer'+(rc>1?'s':'')+' removed from this view.</span>'+
+      '<button id="undoAll">Undo all removals</button></div></div>';
+  }
+
+  $("app").innerHTML = html;
+
+  $("app").querySelectorAll("input[data-pay]").forEach(cb=>{
+    cb.onchange = () => setPaid(cb.dataset.pay, cb.checked);
+  });
+  $("app").querySelectorAll("[data-delreg]").forEach(b=>{
+    b.onclick = () => { if(confirm("Remove this entire registration and its group?")) removeReg(b.dataset.delreg); };
+  });
+  $("app").querySelectorAll("[data-delmem]").forEach(b=>{
+    b.onclick = () => removeMember(b.dataset.delmem);
+  });
+  const ua = $("undoAll"); if(ua) ua.onclick = undoAll;
+
+  $("app").querySelectorAll("[data-addmem]").forEach(b=>{ b.onclick = () => addMember(b.dataset.addmem); });
+  $("app").querySelectorAll("[data-addgroup]").forEach(b=>{ b.onclick = () => addGroup(); });
+
+  const q = $("q"); if(q) q.oninput = () => { TQ = q.value; fillTable(); };
+  const tf = $("tf"); if(tf) tf.onchange = () => { TF = tf.value; fillTable(); };
+  const ex = $("exportBtn"); if(ex) ex.onclick = exportCSV;
+  fillTable();
+}
+
+function card(label, value, cls){
+  return '<div class="card '+(cls||"")+'"><div class="label">'+label+'</div><div class="value">'+value+'</div></div>';
+}
+
+function groupsHtml(rows){
+  if(!rows.length) return '<div class="panel"><div class="note">No RSVPs yet. '+
+    '<button class="addbtn" data-addgroup="1">+ Add a group</button></div></div>';
+  const byPkg={}; rows.forEach(r=>{ const k=r.tier||"Other"; (byPkg[k]=byPkg[k]||[]).push(r); });
+  const order=Object.keys(byPkg).sort((a,b)=>(byPkg[b][0].golfers||0)-(byPkg[a][0].golfers||0));
+  let open=0, inner="";
+  order.forEach(pkg=>{
+    const groups=byPkg[pkg].slice().sort((a,b)=>a.name.localeCompare(b.name));
+    const plural=/s$/i.test(pkg)?pkg:pkg+"s";
+    inner+='<div class="grp-section"><h3>'+esc(plural)+' ('+groups.length+')</h3><div class="grp-grid">';
+    groups.forEach(r=>{
+      const members=[{name:r.name,email:r.email,cap:true}].concat(r.others||[]);
+      const size=Math.max(members.length, Math.max(1,(r.golfers||1)-(r.deletedMembers||0)));
+      inner+='<div class="grp-card"><div class="gh"><strong>'+esc(r.name)+'’s group</strong>'+
+             '<span class="pk">'+esc(r.tier)+(r.price?' · '+fmt(r.price):'')+'</span></div><ol class="roster">';
+      for(let i=0;i<size;i++){
+        const m=members[i];
+        if(m&&(m.name||m.email)){
+          const btn = m.cap
+            ? '<button class="del" data-delreg="'+esc(r.key)+'" title="Remove this registration & group" aria-label="Remove registration">✕</button>'
+            : '<button class="del" data-delmem="'+esc(r.key+"|||"+((m.email||m.name||"").toLowerCase().trim()))+'" title="Remove this golfer" aria-label="Remove golfer">✕</button>';
+          inner+='<li><span class="num">'+(i+1)+'</span><span style="flex:1"><span class="who'+(m.cap?' cap':'')+'">'+
+            esc(m.name||m.email)+(m.cap?' ★':'')+'</span>'+
+            (m.email?' <span class="em">'+esc(m.email)+'</span>':'')+'</span>'+btn+'</li>';
+        } else { open++; inner+='<li><span class="num">'+(i+1)+'</span><span class="open" style="flex:1">— open spot —</span></li>'; }
+      }
+      inner+='</ol><div class="grp-add">'+
+        '<button class="addbtn" data-addmem="'+esc(r.key)+'">+ Add golfer</button></div></div>';
+    });
+    inner+='</div></div>';
+  });
+  const golfers=rows.reduce((s,r)=>s+Math.max(0,(r.golfers||0)-(r.deletedMembers||0)),0);
+  return '<div class="panel"><div class="note" ' +
+    'style="background:#fbfcfb;border-top:none;' +
+    'border-bottom:1px solid var(--line)">'+
+    rows.length+' groups · '+golfers+' golfers'+(open?' · '+open+' open spots':'')+
+    ' <button class="addbtn" data-addgroup="1">+ Add a group</button>'+
+    '</div>'+inner+'</div>';
+}
+
+function paymentsHtml(rows, collected, expected){
+  if(!rows.length) return '<div class="panel"><div class="note">No registrations yet.</div></div>';
+  const pct = expected ? Math.round(collected/expected*100) : 0;
+  const paidCount = rows.filter(r=>PAID[r.key]).length;
+  let html='<div class="panel"><div class="pay-head"><div class="pay-stats"><b>'+fmt(collected)+'</b> of '+fmt(expected)+
+    ' collected · <b>'+paidCount+'</b> of '+rows.length+' groups paid<div class="bar"><span style="width:'+pct+'%"></span></div></div></div>';
+  rows.slice().sort((a,b)=>a.name.localeCompare(b.name)).forEach(r=>{
+    const isPaid=!!PAID[r.key];
+    html+='<div class="pay-row'+(isPaid?' paid':'')+'">'+
+      '<input type="checkbox" data-pay="'+esc(r.key)+'"'+(isPaid?' checked':'')+' aria-label="Mark '+esc(r.name)+' paid">'+
+      '<span class="nm">'+esc(r.name)+'</span>'+
+      '<span class="pill">'+esc(r.tier)+'</span>'+
+      '<span class="tag '+(isPaid?'y':'n')+'">'+(isPaid?'Paid':'Owes')+'</span>'+
+      '<span class="amt">'+fmt(r.price)+'</span></div>';
+  });
+  html+='<div class="note">';
+  html+='Check a box once their Venmo payment lands. ';
+  html+='These checkmarks are saved in <b>this browser</b>, ';
+  html+='so open the page on your own device to keep your tally. ';
+  html+='(To share paid-status with everyone, add a "Paid" ';
+  html+='column in the sheet and tell me.)';
+  html+='</div></div>';
+  return html;
+}
+
+function breakdownHtml(att){
+  const t={}; att.forEach(r=>{ const k=r.tier||"(unspecified)"; t[k]=t[k]||{c:0,m:0}; t[k].c++; t[k].m+=(r.price||0); });
+  const keys=Object.keys(t); if(!keys.length) return "";
+  const max=Math.max(1,...keys.map(k=>t[k].c));
+  const bars=keys.sort((a,b)=>t[b].c-t[a].c).map(k=>
+    '<div class="bar-row"><span>'+esc(k)+'</span><span class="bar-tr"><span class="bar-fl" style="width:'+(t[k].c/max*100)+'%"></span></span>'+
+    '<span class="muted" style="text-align:right">'+t[k].c+' &middot; '+fmt(t[k].m)+'</span></div>').join("");
+  return '<h2 class="sec">By package</h2><div class="panel"><div class="bars">'+bars+'</div></div>';
+}
+
+function responsesShell(){
+  const tiers=[...new Set(ROWS.map(r=>r.tier||"(unspecified)"))];
+  const opts='<option value="">All packages</option>'+tiers.map(t=>'<option'+(TF===t?' selected':'')+'>'+esc(t)+'</option>').join("");
+  return '<h2 class="sec">All responses</h2><div class="panel">'+
+    '<div class="tbl-head"><div class="tools">'+
+      '<input type="text" id="q" placeholder="Search name, email..." value="'+esc(TQ)+'" style="width:200px">'+
+      '<select id="tf">'+opts+'</select></div>'+
+      '<button id="exportBtn">Export CSV</button></div>'+
+    '<div id="respTable"></div></div>';
+}
+
+function fillTable(){
+  const host=$("respTable"); if(!host) return;
+  let rows=ROWS.filter(r=>(!TF||(r.tier||"(unspecified)")===TF) &&
+    (!TQ||((r.name+" "+r.email+" "+r.tier).toLowerCase().includes(TQ.toLowerCase()))));
+  rows.sort((a,b)=>{ let x=a[SK],y=b[SK];
+    if(SK==="price"||SK==="golfers"){ x=+x||0; y=+y||0; } else { x=String(x).toLowerCase(); y=String(y).toLowerCase(); }
+    return x<y?-SD:x>y?SD:0; });
+  if(!rows.length){ host.innerHTML='<div class="note">No matching responses.</div>'; return; }
+  const cols=[["date","Received"],["name","Name"],["email","Email"],["tier","Package"],["golfers","Golfers"],["price","Amount"]];
+  let html='<table><thead><tr>'+cols.map(function(c){ const k=c[0],l=c[1];
+    const act=k===SK?' act':''; const ar=k===SK?(SD>0?'▲':'▼'):'▲';
+    return '<th class="sortable'+act+'" data-k="'+k+'">'+l+' <span class="arr">'+ar+'</span></th>';
+  }).join("")+'<th>Playing with</th></tr></thead><tbody>';
+  rows.forEach(r=>{
+    const d=r.date?String(r.date).split(" ")[0]:"";
+    const others=(r.others||[]).map(o=>o.name||o.email).filter(Boolean).join(", ");
+    const g=Math.max(0,(r.golfers||0)-(r.deletedMembers||0));
+    const pkg=r.attending?'<span class="pill">'+esc(r.tier||"—")+'</span>':'<span class="pill gray">Can’t make it</span>';
+    html+='<tr style="'+(r.attending?'':'opacity:.55')+'">'+
+      '<td class="muted">'+esc(d)+'</td>'+
+      '<td><strong>'+esc(r.name)+'</strong></td>'+
+      '<td class="muted">'+esc(r.email)+'</td>'+
+      '<td>'+pkg+'</td>'+
+      '<td>'+(r.attending&&g?g:'<span class="muted">—</span>')+'</td>'+
+      '<td class="money">'+(r.attending&&r.price?fmt(r.price):'<span class="muted">—</span>')+'</td>'+
+      '<td class="muted">'+esc(others||(r.attending?"—":""))+'</td>'+
+    '</tr>';
+  });
+  host.innerHTML=html+'</tbody></table>';
+  host.querySelectorAll("th[data-k]").forEach(th=>th.onclick=()=>{ const k=th.dataset.k; if(k===SK)SD=-SD; else {SK=k;SD=1;} fillTable(); });
+}
+
+function exportCSV(){
+  const head=["Received","Name","Email","Package","Golfers","Amount","Attending","Playing with"];
+  const lines=[head.join(",")].concat(ROWS.map(r=>{
+    const others=(r.others||[]).map(o=>o.name||o.email).filter(Boolean).join("; ");
+    const g=Math.max(0,(r.golfers||0)-(r.deletedMembers||0));
+    return [String(r.date||"").split(" ")[0], r.name, r.email, r.tier, (r.attending?g:""), (r.attending?r.price:""), (r.attending?"Yes":"No"), others]
+      .map(v=>'"'+String(v==null?"":v).replace(/"/g,'""')+'"').join(",");
+  }));
+  const blob=new Blob([lines.join("\n")],{type:"text/csv"});
+  const a=document.createElement("a"); a.href=URL.createObjectURL(blob); a.download="golf-rsvps.csv"; a.click();
+}
+
+function renderSetup(){
+  $("updated").textContent = "";
+  var s = "";
+  s += '<div class="setup">';
+  s += '<h2>One quick step to go live</h2>';
+  s += '<p class="muted">Publish the responses sheet as CSV, ';
+  s += 'then paste the link into this file.</p>';
+  s += '<ol>';
+  s += '<li>Open the responses sheet.</li>';
+  s += '<li>File, Share, Publish to web.</li>';
+  s += '<li>Choose CSV, click Publish, copy the link.</li>';
+  s += '<li>Replace PASTE_PUBLISHED_CSV_URL_HERE in this file.</li>';
+  s += '</ol></div>';
+  $("app").innerHTML = s;
+}
+
+$("refresh").onclick = load;
+load();
+</script>
+</body>
+</html>
